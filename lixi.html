@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bốc Lì Xì</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('img/2026.png') center/cover no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            position: relative;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 150px);
+            grid-template-rows: repeat(4, 200px);
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        .envelope {
+            width: 150px;
+            height: 200px;
+            background: url('img/dammay2.png') center/cover no-repeat;
+            background-color: #ff0000;
+            border-radius: 10px;
+            position: relative;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background-color 0.3s;
+            overflow: hidden;
+            --hide-open: flex; /* Hiển thị mặc định */
+        }
+        .envelope:hover {
+            transform: scale(1.1);
+        }
+        .envelope::after {
+            content: "Mở";
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffd700;
+            z-index: 1;
+            background-color: #ff0000;
+            border: 2px solid #ffd700;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: var(--hide-open);
+            align-items: center;
+            justify-content: center;
+        }
+        .dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            text-align: center;
+        }
+        .dialog img {
+            width: 400px;
+            height: auto;
+        }
+        .dialog button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .dialog button:hover {
+            background-color: #ff0000;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="dialog" id="dialog">
+        <img src="" alt="Tiền lì xì" id="dialogImage">
+        <p id="dialogMessage"></p>
+        <button id="closeDialog">Đóng</button>
+    </div>
+
+    <script>
+        // Tạo các giá trị mệnh giá và số lượng tương ứng
+        const rewards = [
+            ...Array(8).fill({ value: "10,000 VNĐ", message: "Chúc bạn năm mới an khang thịnh vượng!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-10k.jpg" }),
+            ...Array(8).fill({ value: "20,000 VNĐ", message: "Chúc bạn sức khỏe dồi dào, làm ăn phát tài!", image: "https://cdn1.tuoitre.vn/thumb_w/1200/tto/i/s626/2006/05/03/jPbDKGAH.jpg" }),
+            ...Array(3).fill({ value: "50,000 VNĐ", message: "Chúc bạn năm mới gặp nhiều may mắn!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-50k.jpg" }),
+            { value: "100,000 VNĐ", message: "Chúc bạn vạn sự như ý!", image: "https://static.tuoitre.vn/tto/i/s626/2004/08/18/8WpzlPFB.jpg" }
+        ];
+
+        // Trộn ngẫu nhiên mảng giá trị
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(rewards);
+
+        // Chọn phần tử DOM
+        const grid = document.getElementById("grid");
+        const dialog = document.getElementById("dialog");
+        const overlay = document.getElementById("overlay");
+        const dialogImage = document.getElementById("dialogImage");
+        const dialogMessage = document.getElementById("dialogMessage");
+        const closeDialog = document.getElementById("closeDialog");
+
+        // Tạo nhiều bao lì xì
+        rewards.forEach(reward => {
+            const envelope = document.createElement("div");
+            envelope.className = "envelope";
+
+            // Gán sự kiện click cho mỗi bao lì xì
+            envelope.addEventListener("click", function handleClick() {
+                // Hiển thị nội dung trong dialog
+                dialogImage.src = reward.image;
+                dialogMessage.innerHTML = `<p>Mệnh giá: <strong>${reward.value}</strong></p><p> ${reward.message}</p>`;
+                dialog.style.display = "block";
+                overlay.style.display = "block";
+
+                // Hiển thị mệnh giá trên bao lì xì
+                envelope.textContent = reward.value;
+                envelope.style.backgroundColor = "#ffd700";
+                envelope.style.color = "#333";
+                envelope.style.cursor = "default";
+
+                // Gỡ lớp phủ "Mở" và vòng tròn
+                envelope.style.setProperty("--hide-open", "none");
+
+                // Gỡ sự kiện click
+                envelope.removeEventListener("click", handleClick);
+            });
+
+            grid.appendChild(envelope);
+        });
+
+        // Đóng dialog
+        closeDialog.addEventListener("click", () => {
+            dialog.style.display = "none";
+            overlay.style.display = "none";
+        });
+
+        overlay.addEventListener("click", () => {
+            dialog.style.display = "none";
+            overlay.style.display = "none";
+        });
+    </script>
+</body>
+</html>
