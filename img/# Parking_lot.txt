@@ -1,0 +1,56 @@
+# Parking_lot
+## Xây dựng mô hình quản lý bãi đỗ xe ứng dụng xử lý ảnh
+
+ Các Chức Năng Chính
+
+Hiển thị video giám sát bãi đỗ xe.
+
+Nhận diện và vẽ khung bãi đỗ xe.
+
+Lưu trữ dữ liệu về các vị trí đ\u1eaux xe trong tệp YAML.
+
+Xác định trạng thái các vị trí đ\u1eaux xe dựa trên bài toán Laplacian.
+
+Gửi dữ liệu trạng thái bãi đỗ xe lên Thingspeak.
+
+Giao diện người dùng cho phép tương tác và chỉnh sửa dữ liệu.
+
+3. Các Thành Phần Chính Của Chương Trình
+
+3.1. Lớp GuiThread
+
+Lớp GuiThread là lớp chính chịu trách nhiệm quản lý giao diện và xử lý logic chương trình.
+
+3.2. Các Biến Chính
+
+self.cap: Biến quản lý video đệm giám sát.
+
+self.park_writedata: Danh sách lưu trữ dữ liệu vị trí đ\u1eaux xe.
+
+self.laplacian_num: Ngưỡng phân biệt trạng thái xe trong bãi.
+
+3.3. Các Phương Thức Quan Trọng
+
+ShowVideo(): Xử lý và hiển thị video giám sát bãi đỗ xe.
+
+WriteSelect(): Ghi dữ liệu vị trí đ\u1eaux xe vào tệp YAML.
+
+SetLaplacian(): Cấu hình ngưỡng Laplacian cho phép xác định xe trong bãi.
+
+SendThingspeak(): Gửi dữ liệu bãi đỗ xe lên Thingspeak.
+
+4. Cơ Chế Hoạt Động
+
+Chương trình tải video giám sát bãi đỗ xe.
+
+Đọc dữ liệu vị trí đ\u1eaux xe từ tệp YAML.
+
+Phân tích và xác định vị trí đang có xe hay trống.
+
+Cập nhật giao diện người dùng và hiển thị kết quả.
+
+Gửi dữ liệu trạng thái bãi đỗ xe lên Thingspeak.
+
+5. Kết Luận
+Chương trình giám sát bãi đỗ xe sử dụng Python và các thư viện mạnh mẽ giúp tự động hóa quá trình giám sát, quản lý bãi đỗ xe.
+Việc kết hợp với Thingspeak cho phép truy vấn trạng thái bãi đỗ xe từ xa, giúp đảm bảo việc giám sát hiệu quả và tiện lợi.

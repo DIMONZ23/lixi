@@ -1,0 +1,152 @@
+<template>
+  <v-container class="px-0 mt-0">
+    <!-- Header -->
+    <h2 class="text-h5 font-bold text-gray-900">申請検索 . 一覧</h2>
+    <v-divider class="custom-divider"></v-divider>
+    <h3 class="text-h6 font-medium text-gray-800">検索条件</h3>
+    <v-divider class="custom-divider"></v-divider>
+
+    <!-- Search Conditions -->
+    <v-card-text class="space-y-6">
+      <div class="d-flex ga-2  justify-start">
+        <!-- Date Range -->
+        <div class="d-flex ga-3  justify-center">
+          <v-label class="text-body-2 text-center items-center text-black font-weight-bold mb-4">申請対象日</v-label>
+          <DateSlashFieldUI :rules="rules" v-model:val="searchConditions.startDate" class="h-1 w-32 ml-15" />
+          <span class="text-gray-600 font-weight-bold text-xl-h6">~</span>
+          <DateSlashFieldUI :rules="rules" v-model:val="searchConditions.endDate" class="w-32" />
+        </div>
+
+        <!-- Application Type -->
+        <div class="d-flex ga-2 space-x-6  ml-xl-15">
+          <v-label class="text-body-2 text-gray-700 font-weight-bold mb-4">申請種類</v-label>
+          <v-select
+              v-model="searchConditions.applicationType"
+              :items="applicationTypes"
+              item-title="text" width="400px"
+              item-value="value"
+              class="text-gray-700 w-full ml-xl-5"
+              dense
+          />
+        </div>
+      </div>
+
+
+      <!-- Application Status -->
+      <div class="d-flex ga-2 mt-4 ">
+        <div class="justify-start items-start mt-4">
+          <label class="text-body-2 text-gray-700 ">申請状態</label>
+          <v-label  class="text-body-2 text-white ml-3 border rounded-xl bg-blue-accent-1 pl-2 pr-2" >必須</v-label>
+        </div>
+
+
+        <div class="space-x-4 ml-xl-10">
+          <v-checkbox
+              v-model="searchConditions.allSelected"
+              label="（全て選択する）"
+              @change="toggleAllStatus"
+              dense
+              class="text-gray-700"
+          />
+          <div class="d-flex ga-5 space-x-2">
+            <v-checkbox
+                v-for="(status, key) in statuses"
+                :key="key"
+                v-model="searchConditions[key]"
+                :label="status"
+                dense
+                class="text-gray-700"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Button -->
+      <div class="flex justify-end mt-6">
+        <v-btn color="black" variant="outlined" rounded="lg" @click="search" class="outline" width="150px" >検索する</v-btn>
+      </div>
+    </v-card-text>
+    <v-divider class="custom-divider"></v-divider>
+  </v-container>
+</template>
+
+<script>
+import DateSlashFieldUI from "@/components/common/parts/DateSlashFieldUI.vue";
+import { MessageUtil } from "@/lib/common/util/MessageUtil";
+const today = new Date();
+export default {
+  components: { DateSlashFieldUI },
+  data() {
+    const twoMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 2, 2);
+    return {
+      searchConditions: {
+        startDate: twoMonthsAgo.toISOString().split("T")[0],
+        endDate: null,
+        applicationType: 0,
+        allSelected: true,
+        saved: true,
+        applying: true,
+        inProgress: true,
+        approved: true,
+        rejected: true,
+      },
+      applicationTypes: [
+        { text: "空白行", value: 0 },
+        { text: "各種申請（事前残業申請、など）", value: 1 },
+        { text: "独自申請（設定画面で設定された名称）", value: 2 },
+      ],
+      statuses: {
+        saved: "保存中",
+        applying: "申請中",
+        inProgress: "差戻中",
+        approved: "承認中",
+        rejected: "承認済",
+      },
+      rules: [(x) => !!x || "値を入力してください"],
+    };
+  },
+
+  methods: {
+    search() {
+      let message = '';
+      const isAnyStatusSelected = Object.keys(this.statuses).some(
+          (status) => this.searchConditions[status]
+      );
+      if (!isAnyStatusSelected) {
+        message = MessageUtil.getMessage("MEC_003001");
+        alert(message);
+        return;
+      }
+
+      if ((this.searchConditions.startDate ||
+          this.searchConditions.endDate) ||
+          new Date(this.searchConditions.startDate) > new Date(this.searchConditions.endDate) &&
+          new Date(this.searchConditions.endDate) > today
+      ) {
+        message = MessageUtil.getMessage("MEC_001001");
+        alert(message);
+        return;
+      }
+
+      console.log(this.searchConditions);
+    },
+    toggleAllStatus() {
+      for (let status in this.statuses) {
+        this.searchConditions[status] = this.searchConditions.allSelected;
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+.custom-divider {
+  border-top: 2px solid black;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.v-btn {
+  font-weight: 500;
+}
+</style>

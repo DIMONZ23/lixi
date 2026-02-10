@@ -1,0 +1,107 @@
+<html lang="en"></html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   DUY TATE
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0b0d13;
+            color: white;
+        }
+        .hero {
+            background-image: url('https://placehold.co/1920x1080');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            height: 100vh;
+        }
+        .overlay {
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+  </style>
+ </head>
+ <body>
+  <div id="app">
+   <div class="hero">
+    <div class="overlay">
+    </div>
+    <div class="content flex flex-col justify-between h-full p-8">
+     <header class="flex justify-between items-center">
+      <div class="text-white text-xl font-bold">
+       D.T.
+      </div>
+      <nav class="flex space-x-4">
+       <a class="text-white" href="#">
+        Dự án
+       </a>
+       <a class="text-white" href="#">
+        Giới thiệu
+       </a>
+       <a class="text-white" href="#">
+        Liên hệ
+       </a>
+      </nav>
+     </header>
+     <main class="flex flex-col md:flex-row items-center justify-between">
+      <div class="text-left">
+       <h1 class="text-6xl font-bold">
+        DUY TATE
+       </h1>
+       <p class="text-lg mt-4">
+        Tôi là nhà thiết kế game đa nền tảng tại Hà Nội, chuyên thiết kế nhân vật và cấp độ game
+       </p>
+       <div class="mt-8 flex items-center">
+        <img alt="Image of the latest project" class="w-32 h-20 object-cover rounded-lg" height="100" src="https://storage.googleapis.com/a1aa/image/qLduV5uFEXZzGFCgImNLNjm3YXGAhR8l7t1EUcztiZYUH04E.jpg" width="150"/>
+        <div class="ml-4">
+         <h2 class="text-xl font-bold">
+          Dự án mới nhất
+         </h2>
+         <p>
+          Battle of Braves | PlayStation | 2035
+         </p>
+         <a class="text-blue-500 mt-2 inline-flex items-center" href="#">
+          Xem game
+          <i class="fas fa-arrow-right ml-2">
+          </i>
+         </a>
+        </div>
+       </div>
+      </div>
+      <div class="hidden md:block">
+       <img alt="Image of a soldier in a game" class="w-full h-full object-cover" height="700" src="https://storage.googleapis.com/a1aa/image/pefDTixIE8iVjE6TQOpm3ET4rkPBJHfIJMJhYyGfGRxD1BNOB.jpg" width="500"/>
+      </div>
+     </main>
+    </div>
+   </div>
+  </div>
+  <script src="https://registry.npmmirror.com/vue/3.3.11/files/dist/vue.global.js">
+  </script>
+  <script>
+   const { createApp, ref } = Vue
+        createApp({
+            setup() {
+                const message = ref('Hello vue!')
+                return {
+                    message
+                }
+            }
+        }).mount('#app')
+  </script>
+ </body>
+</html>
