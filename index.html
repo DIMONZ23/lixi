@@ -6,112 +6,134 @@
     <title>Lì Xì May Mắn</title>
      <link rel="icon" type="image/png" href="/img/dammay.png" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: url('img/2026.png') center/cover no-repeat;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .container {
-            text-align: center;
-            position: relative;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 150px);
-            grid-template-rows: repeat(4, 200px);
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-        }
-        .envelope {
-            width: 150px;
-            height: 200px;
-            background: url('img/dammay2.png') center/cover no-repeat;
-            background-color: #ff0000;
-            border-radius: 10px;
-            position: relative;
-            color: white;
-            font-weight: bold;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, background-color 0.3s;
-            overflow: hidden;
-            --hide-open: flex; /* Hiển thị mặc định */
-        }
-        .envelope:hover {
-            transform: scale(1.1);
-        }
-        .envelope::after {
-            content: "Mở";
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffd700;
-            z-index: 1;
-            background-color: #ff0000;
-            border: 2px solid #ffd700;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: var(--hide-open);
-            align-items: center;
-            justify-content: center;
-        }
-        .dialog {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            display: none;
-            text-align: center;
-        }
-        .dialog img {
-            width: 400px;
-            height: auto;
-        }
-        .dialog button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .dialog button:hover {
-            background-color: #ff0000;
-        }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
-        }
-    </style>
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: url('img/2026.png') center/cover no-repeat;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* ✅ GRID RESPONSIVE */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 12px;
+}
+
+/* ✅ ENVELOPE RESPONSIVE */
+.envelope {
+    width: 100%;
+    aspect-ratio: 3/4; /* giữ tỉ lệ đẹp */
+    background: url('img/dammay2.png') center/cover no-repeat;
+    background-color: #ff0000;
+    border-radius: 12px;
+    position: relative;
+    color: white;
+    font-weight: bold;
+    font-size: clamp(14px, 3vw, 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform .3s;
+    overflow: hidden;
+    --hide-open: flex;
+}
+
+.envelope:hover {
+    transform: scale(1.05);
+}
+
+.envelope::after {
+    content: "Mở";
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(12px, 3vw, 18px);
+    color: #ffd700;
+    z-index: 1;
+    background-color: #ff0000;
+    border: 2px solid #ffd700;
+    width: clamp(35px, 10vw, 50px);
+    height: clamp(35px, 10vw, 50px);
+    border-radius: 50%;
+    display: var(--hide-open);
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✅ DIALOG MOBILE FRIENDLY */
+.dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: none;
+    width: 90%;
+    max-width: 400px;
+}
+
+.dialog img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.dialog button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+/* ✅ MOBILE EXTRA */
+@media (max-width:600px){
+
+    body{
+        padding:10px;
+    }
+
+    .grid{
+        gap:10px;
+    }
+
+}
+
+</style>
+
 </head>
 <body>
     <div class="container">
@@ -129,10 +151,10 @@
     <script>
         // Tạo các giá trị mệnh giá và số lượng tương ứng
         const rewards = [
-            ...Array(8).fill({ value: "10,000 VNĐ", message: "Chúc bạn năm mới an khang thịnh vượng!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-10k.jpg" }),
-            ...Array(8).fill({ value: "20,000 VNĐ", message: "Chúc bạn sức khỏe dồi dào, làm ăn phát tài!", image: "https://cdn1.tuoitre.vn/thumb_w/1200/tto/i/s626/2006/05/03/jPbDKGAH.jpg" }),
-            ...Array(3).fill({ value: "50,000 VNĐ", message: "Chúc bạn năm mới gặp nhiều may mắn!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-50k.jpg" }),
-            { value: "100,000 VNĐ", message: "Chúc bạn vạn sự như ý!", image: "https://static.tuoitre.vn/tto/i/s626/2004/08/18/8WpzlPFB.jpg" }
+            //...Array(8).fill({ value: "10,000 VNĐ", message: "Chúc bạn năm mới an khang thịnh vượng!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-10k.jpg" }),
+            ...Array(2).fill({ value: "20,000 VNĐ", message: "Chúc bạn sức khỏe dồi dào, làm ăn phát tài!", image: "https://cdn1.tuoitre.vn/thumb_w/1200/tto/i/s626/2006/05/03/jPbDKGAH.jpg" }),
+            ...Array(4).fill({ value: "50,000 VNĐ", message: "Chúc bạn năm mới gặp nhiều may mắn!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-50k.jpg" }),
+            ...Array(3).fill({ value: "100,000 VNĐ", message: "Chúc bạn vạn sự như ý!", image: "https://static.tuoitre.vn/tto/i/s626/2004/08/18/8WpzlPFB.jpg" })
         ];
 
         // Trộn ngẫu nhiên mảng giá trị
