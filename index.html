@@ -1,219 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lì Xì May Mắn</title>
-     <link rel="icon" type="image/png" href="/img/dammay.png" />
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-*{
-    box-sizing: border-box;
-}
+<title>Lì Xì May Mắn</title>
+<link rel="icon" type="image/png" href="/img/dammay.png" />
 
-body {
+<style>
+
+*{box-sizing:border-box;}
+
+body{
     font-family: Arial, sans-serif;
-    text-align: center;
-    background: url('img/2026.png') center/cover no-repeat;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    text-align:center;
+    background:url('img/2026.png') center/cover no-repeat;
+    margin:0;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
 }
 
-.container {
-    width: 100%;
-    max-width: 1000px;
+.container{
+    width:100%;
+    max-width:1000px;
 }
 
-/* ✅ GRID RESPONSIVE */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 12px;
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(90px,1fr));
+    gap:12px;
 }
 
-/* ✅ ENVELOPE RESPONSIVE */
-.envelope {
-    width: 100%;
-    aspect-ratio: 3/4; /* giữ tỉ lệ đẹp */
-    background: url('img/dammay2.png') center/cover no-repeat;
-    background-color: #ff0000;
-    border-radius: 12px;
-    position: relative;
-    color: white;
-    font-weight: bold;
-    font-size: clamp(14px, 3vw, 24px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: transform .3s;
-    overflow: hidden;
-    --hide-open: flex;
+.envelope{
+    width:100%;
+    aspect-ratio:3/4;
+    background:url('img/dammay2.png') center/cover no-repeat;
+    background-color:#ff0000;
+    border-radius:12px;
+    position:relative;
+    color:white;
+    font-weight:bold;
+    font-size:clamp(14px,3vw,24px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 4px 8px rgba(0,0,0,0.2);
+    transition:.3s;
+    overflow:hidden;
+    --hide-open:flex;
 }
 
-.envelope:hover {
-    transform: scale(1.05);
+.envelope:hover{
+    transform:scale(1.05);
 }
 
-.envelope::after {
-    content: "Mở";
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: clamp(12px, 3vw, 18px);
-    color: #ffd700;
-    z-index: 1;
-    background-color: #ff0000;
-    border: 2px solid #ffd700;
-    width: clamp(35px, 10vw, 50px);
-    height: clamp(35px, 10vw, 50px);
-    border-radius: 50%;
-    display: var(--hide-open);
-    align-items: center;
-    justify-content: center;
+.envelope::after{
+    content:"Mở";
+    position:absolute;
+    top:30%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:clamp(12px,3vw,18px);
+    color:#ffd700;
+    z-index:1;
+    background-color:#ff0000;
+    border:2px solid #ffd700;
+    width:clamp(35px,10vw,50px);
+    height:clamp(35px,10vw,50px);
+    border-radius:50%;
+    display:var(--hide-open);
+    align-items:center;
+    justify-content:center;
 }
 
-/* ✅ DIALOG MOBILE FRIENDLY */
-.dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-    display: none;
-    width: 90%;
-    max-width: 400px;
+.dialog{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    z-index:1000;
+    display:none;
+    width:90%;
+    max-width:400px;
 }
 
-.dialog img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+.dialog img{
+    width:100%;
+    border-radius:8px;
 }
 
-.dialog button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.dialog button{
+    margin-top:10px;
+    padding:10px 20px;
+    background:#ff4d4d;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
 }
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
-    display: none;
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    z-index:999;
+    display:none;
 }
 
-/* ✅ MOBILE EXTRA */
-@media (max-width:600px){
+.settings-btn{
+    position:fixed;
+    top:15px;
+    right:15px;
+    background:#ffd700;
+    border:none;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:2000;
+}
 
-    body{
-        padding:10px;
-    }
-
-    .grid{
-        gap:10px;
-    }
-
+.settings-dialog input{
+    width:100%;
+    padding:8px;
+    margin:5px 0;
 }
 
 </style>
-
 </head>
+
 <body>
-    <div class="container">
-        <div class="grid" id="grid"></div>
-    </div>
 
-    <div class="overlay" id="overlay"></div>
+<div class="container">
+<div class="grid" id="grid"></div>
+</div>
 
-    <div class="dialog" id="dialog">
-        <img src="" alt="Tiền lì xì" id="dialogImage">
-        <p id="dialogMessage"></p>
-        <button id="closeDialog">Đóng</button>
-    </div>
+<button class="settings-btn" id="settingsBtn">⚙️</button>
 
-    <script>
-        // Tạo các giá trị mệnh giá và số lượng tương ứng
-        const rewards = [
-            //...Array(8).fill({ value: "10,000 VNĐ", message: "Chúc bạn năm mới an khang thịnh vượng!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-10k.jpg" }),
-            ...Array(2).fill({ value: "20,000 VNĐ", message: "Chúc bạn sức khỏe dồi dào, làm ăn phát tài!", image: "https://cdn1.tuoitre.vn/thumb_w/1200/tto/i/s626/2006/05/03/jPbDKGAH.jpg" }),
-            ...Array(4).fill({ value: "50,000 VNĐ", message: "Chúc bạn năm mới gặp nhiều may mắn!", image: "https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-50k.jpg" }),
-            ...Array(3).fill({ value: "100,000 VNĐ", message: "Chúc bạn vạn sự như ý!", image: "https://static.tuoitre.vn/tto/i/s626/2004/08/18/8WpzlPFB.jpg" })
-        ];
+<div class="overlay" id="overlay"></div>
 
-        // Trộn ngẫu nhiên mảng giá trị
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+<div class="dialog" id="dialog">
+<img id="dialogImage">
+<p id="dialogMessage"></p>
+<button id="closeDialog">Đóng</button>
+</div>
 
-        shuffle(rewards);
+<div class="dialog settings-dialog" id="settingsDialog">
 
-        // Chọn phần tử DOM
-        const grid = document.getElementById("grid");
-        const dialog = document.getElementById("dialog");
-        const overlay = document.getElementById("overlay");
-        const dialogImage = document.getElementById("dialogImage");
-        const dialogMessage = document.getElementById("dialogMessage");
-        const closeDialog = document.getElementById("closeDialog");
+<h3>Cài đặt mệnh giá</h3>
 
-        // Tạo nhiều bao lì xì
-        rewards.forEach(reward => {
-            const envelope = document.createElement("div");
-            envelope.className = "envelope";
+<label>10.000 VNĐ</label>
+<input type="number" id="qty10" value="0">
 
-            // Gán sự kiện click cho mỗi bao lì xì
-            envelope.addEventListener("click", function handleClick() {
-                // Hiển thị nội dung trong dialog
-                dialogImage.src = reward.image;
-                dialogMessage.innerHTML = `<p>Mệnh giá: <strong>${reward.value}</strong></p><p> ${reward.message}</p>`;
-                dialog.style.display = "block";
-                overlay.style.display = "block";
+<label>20.000 VNĐ</label>
+<input type="number" id="qty20" value="2">
 
-                // Hiển thị mệnh giá trên bao lì xì
-                envelope.textContent = reward.value;
-                envelope.style.backgroundColor = "#ffd700";
-                envelope.style.color = "#333";
-                envelope.style.cursor = "default";
+<label>50.000 VNĐ</label>
+<input type="number" id="qty50" value="4">
 
-                // Gỡ lớp phủ "Mở" và vòng tròn
-                envelope.style.setProperty("--hide-open", "none");
+<label>100.000 VNĐ</label>
+<input type="number" id="qty100" value="3">
 
-                // Gỡ sự kiện click
-                envelope.removeEventListener("click", handleClick);
-            });
+<button id="saveSettings">Lưu</button>
 
-            grid.appendChild(envelope);
-        });
+</div>
 
-        // Đóng dialog
-        closeDialog.addEventListener("click", () => {
-            dialog.style.display = "none";
-            overlay.style.display = "none";
-        });
+<script>
 
-        overlay.addEventListener("click", () => {
-            dialog.style.display = "none";
-            overlay.style.display = "none";
-        });
-    </script>
+const grid=document.getElementById("grid");
+const dialog=document.getElementById("dialog");
+const overlay=document.getElementById("overlay");
+const dialogImage=document.getElementById("dialogImage");
+const dialogMessage=document.getElementById("dialogMessage");
+const closeDialog=document.getElementById("closeDialog");
+
+const settingsBtn=document.getElementById("settingsBtn");
+const settingsDialog=document.getElementById("settingsDialog");
+
+const qty10=document.getElementById("qty10");
+const qty20=document.getElementById("qty20");
+const qty50=document.getElementById("qty50");
+const qty100=document.getElementById("qty100");
+
+const saveSettings=document.getElementById("saveSettings");
+
+function shuffle(array){
+    for(let i=array.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [array[i],array[j]]=[array[j],array[i]];
+    }
+}
+
+function createRewards(){
+
+const rewards=[
+
+...Array(parseInt(qty10.value||0)).fill({
+value:"10,000 VNĐ",
+message:"Chúc bạn năm mới an khang!",
+image:"https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-10k.jpg"
+}),
+
+...Array(parseInt(qty20.value||0)).fill({
+value:"20,000 VNĐ",
+message:"Chúc bạn sức khỏe dồi dào!",
+image:"https://cdn1.tuoitre.vn/thumb_w/1200/tto/i/s626/2006/05/03/jPbDKGAH.jpg"
+}),
+
+...Array(parseInt(qty50.value||0)).fill({
+value:"50,000 VNĐ",
+message:"Chúc bạn gặp nhiều may mắn!",
+image:"https://www.anhnghethuatdulich.com/wp-content/uploads/2025/09/anh-tien-50k.jpg"
+}),
+
+...Array(parseInt(qty100.value||0)).fill({
+value:"100,000 VNĐ",
+message:"Chúc bạn vạn sự như ý!",
+image:"https://static.tuoitre.vn/tto/i/s626/2004/08/18/8WpzlPFB.jpg"
+})
+
+];
+
+shuffle(rewards);
+
+grid.innerHTML="";
+
+rewards.forEach(reward=>{
+
+const envelope=document.createElement("div");
+envelope.className="envelope";
+
+envelope.addEventListener("click",function handleClick(){
+
+dialogImage.src=reward.image;
+
+dialogMessage.innerHTML=
+`<p>Mệnh giá: <strong>${reward.value}</strong></p>
+<p>${reward.message}</p>`;
+
+dialog.style.display="block";
+overlay.style.display="block";
+
+envelope.textContent=reward.value;
+envelope.style.backgroundColor="#ffd700";
+envelope.style.color="#333";
+envelope.style.cursor="default";
+envelope.style.setProperty("--hide-open","none");
+
+envelope.removeEventListener("click",handleClick);
+
+});
+
+grid.appendChild(envelope);
+
+});
+
+}
+
+createRewards();
+
+settingsBtn.onclick=()=>{
+settingsDialog.style.display="block";
+overlay.style.display="block";
+}
+
+saveSettings.onclick=()=>{
+settingsDialog.style.display="none";
+overlay.style.display="none";
+createRewards();
+}
+
+function closeAll(){
+dialog.style.display="none";
+settingsDialog.style.display="none";
+overlay.style.display="none";
+}
+
+closeDialog.onclick=closeAll;
+overlay.onclick=closeAll;
+
+</script>
+
 </body>
 </html>
